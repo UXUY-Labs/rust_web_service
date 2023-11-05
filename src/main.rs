@@ -150,7 +150,7 @@ async fn main() -> io::Result<()> {
             // default
             .default_service(web::to(default_handler))
     })
-        .bind(("127.0.0.1", 8080))?
+        .bind(("127.0.0.1", 9000))?
         .workers(2)
         .run()
         .await
