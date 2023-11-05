@@ -101,7 +101,7 @@ async fn main() -> io::Result<()> {
     // random key means that restarting server will invalidate existing session cookies
     let key = actix_web::cookie::Key::from(SESSION_SIGNING_KEY);
 
-    log::info!("starting HTTP server at http://localhost:8080");
+    log::info!("starting HTTP server at http://0.0.0.0:9000");
 
     HttpServer::new(move || {
         App::new()
@@ -150,7 +150,7 @@ async fn main() -> io::Result<()> {
             // default
             .default_service(web::to(default_handler))
     })
-        .bind(("127.0.0.1", 9000))?
+        .bind(("0.0.0.0", 9000))?
         .workers(2)
         .run()
         .await
