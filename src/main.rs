@@ -112,7 +112,7 @@ struct PayReq {
 async fn generate_invoice(req: HttpRequest, path: web::Path<(String,)>) -> HttpResponse {
     println!("{req:?}");
 
-    let resp = PayReq{ pr: "lnbc100n1pj5wlunpp5rwf8m9d7dscdc67mq6k6jhst6mwlr4tfey3hptm52wpnfksuegzqdp9wpshjmt9de6zqar0ypkkz7zqw4u827fwdahx2cqzzsxqyz5vqsp5fs6aqrrxgwrlwjqhrprlqf790mv4qf5nhn2xfesawrmnt5mx6ans9qyyssqqmjc65d35d39rnc3kqcw3f2eeydy7vrzp9f8c6up4w4vz8kq8k7yz9nrah28gdjf003fv4rle3usfzuwthpvep8rlhjtskkesyvhnycpvcy5th".to_string(), routes: Vec::from(["".to_string()]) };
+    let resp = PayReq{ pr: "lnbc100n1pj50qnrpp5jzdkxksgux432fef85rxs8esr60xw6ppkj6gl5atrfwhgaqlm25qdpcu6w6t6y84f24s42eu7dgfeafhtng49fqw3hjqmtp0pq827r40yhx7mn9cqzzsxqyz5vqsp5ynp6se5u75l87t6nspkzm9lm60czvhnqz9kw75w34ttn4mcleqjs9qyyssqf3h5c4e86gmzt8za3h46gt9ck57ve5hs0mhlwxncsa7fgvfvdfxj6dl5wfq054kyzmf37da48h5h2262y8p84karea0jvw5kkqf3x3gpee72kd".to_string(), routes: Vec::from(["".to_string()]) };
     HttpResponse::Ok()
         .content_type(ContentType::json())
         .json(resp)
@@ -123,8 +123,8 @@ async fn with_param(req: HttpRequest, path: web::Path<(String,)>) -> HttpRespons
     let resp = LnUrlStruct{
         callback: "https://uxuy.one/lnd/payreq/1000".to_string(),
         max_sendable: 100000000,
-        min_sendable: 1000,
-        metadata: "[[\"text/plain\",\"Pay to Wallet of Uxuy user: max\"],[\"text/identifier\",\"max@uxuy.com\"]]".to_string(),
+        min_sendable: 10000,
+        metadata: "[[\"text/plain\",\"Airdrop From Uxuy to user: max\"],[\"text/identifier\",\"max@uxuy.com\"]]".to_string(),
         comment_allowed: 255,
         tag: "payRequest".to_string(),
         allows_nostr: false,
