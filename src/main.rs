@@ -121,7 +121,7 @@ async fn generate_invoice(req: HttpRequest, path: web::Path<(String,)>) -> HttpR
 async fn with_param(req: HttpRequest, path: web::Path<(String,)>) -> HttpResponse {
     println!("{req:?}");
     let resp = LnUrlStruct{
-        callback: "http://uxuy.one/lnd/payreq/1000".to_string(),
+        callback: "https://uxuy.one/lnd/payreq/1000".to_string(),
         max_sendable: 100000000,
         min_sendable: 1000,
         metadata: LnUrlMeta{
