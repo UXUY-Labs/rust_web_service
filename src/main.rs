@@ -124,7 +124,7 @@ async fn with_param(req: HttpRequest, path: web::Path<(String,)>) -> HttpRespons
         callback: "https://uxuy.one/lnd/payreq/1000".to_string(),
         max_sendable: 100000000,
         min_sendable: 1000,
-        metadata: "[[\"text/plain\",\"Pay to Wallet of Satoshi user: kevin\"],[\"text/identifier\",\"kevin@walletofsatoshi.com\"]]".to_string(),
+        metadata: "[[\"text/plain\",\"Pay to Wallet of Uxuy user: max\"],[\"text/identifier\",\"max@uxuy.com\"]]".to_string(),
         comment_allowed: 255,
         tag: "payRequest".to_string(),
         allows_nostr: false,
