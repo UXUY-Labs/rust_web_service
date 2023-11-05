@@ -112,7 +112,7 @@ struct PayReq {
 async fn generate_invoice(req: HttpRequest, path: web::Path<(String,)>) -> HttpResponse {
     println!("{req:?}");
 
-    let resp = PayReq{ pr: "lnbc10u1pj5wagxpp53cgcelaagqaehkuc6knppt7m3qgnc0haxle4pvyykf479dx7v3kqdq8w4u827gcqzzsxqyz5vqsp5cpwd93u2gkfn44gqmctykqay45wrkagmkusggxs274cpq8ajv0ys9qyyssq9eqy4e6xzjlgmp3fgl0z7udz4fhtcx540qqhd65j33ukz6ttplqn749utuhd9hnp555ev2jw25568f0647mflvc5gjher3jmeqxzj8gqu3dlf3".to_string(), routes: Vec::from(["".to_string()]) };
+    let resp = PayReq{ pr: "lnbc100n1pj5w7jfpp5x2w7wj83ue3ze6mwffg7q9pkhfaq8drcn886anu7204cz9cexycqdq8w4u827gcqzzsxqyz5vqsp53zq5euxg2yhanqdgn0x2wh2w5wrv75epdz0e7835ex5n475qpcks9qyyssqfdagsz4esqmjjd3ruqc4tt786azn0c8xlfqjx57vndgm03huyhkzecctk00sctxqdfx83qdjsme9ax25qadqd6py9hpzelvjwfxtemcqw60uqa".to_string(), routes: Vec::from(["".to_string()]) };
     HttpResponse::Ok()
         .content_type(ContentType::json())
         .json(resp)
