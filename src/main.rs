@@ -77,12 +77,61 @@ pub struct IndexResponse {
     counter: i32,
 }
 
-async fn with_param(req: HttpRequest, path: web::Path<(String,)>) -> HttpResponse {
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
+pub struct LnUrlMeta {
+    #[serde(rename = "text/identifier")]
+    pub text_identifier: String,
+    #[serde(rename = "text/plain")]
+    pub text_plain: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
+struct LnUrlStruct {
+    pub callback: String,
+    #[serde(rename = "maxSendable")]
+    pub max_sendable: i64,
+    #[serde(rename = "minSendable")]
+    pub min_sendable: i64,
+    pub metadata: LnUrlMeta,
+    #[serde(rename = "commentAllowed")]
+    pub comment_allowed: i64,
+    pub tag: String,
+    #[serde(rename = "allowsNostr")]
+    pub allows_nostr: bool,
+    #[serde(rename = "nostrPubkey")]
+    pub nostr_pubkey: String,
+}
+
+
+#[derive(Serialize, Deserialize)]
+struct PayReq {
+    pub pr: String,
+    pub routes: Vec<String>,
+}
+
+async fn generate_invoice(req: HttpRequest, path: web::Path<(String,)>) -> HttpResponse {
     println!("{req:?}");
 
-    let resp = IndexResponse{
-        user_id: path.0.to_string(),
-        counter: 186,
+    let resp = PayReq{ pr: "lnbc10u1pj5wagxpp53cgcelaagqaehkuc6knppt7m3qgnc0haxle4pvyykf479dx7v3kqdq8w4u827gcqzzsxqyz5vqsp5cpwd93u2gkfn44gqmctykqay45wrkagmkusggxs274cpq8ajv0ys9qyyssq9eqy4e6xzjlgmp3fgl0z7udz4fhtcx540qqhd65j33ukz6ttplqn749utuhd9hnp555ev2jw25568f0647mflvc5gjher3jmeqxzj8gqu3dlf3".to_string(), routes: Vec::from(["".to_string()]) };
+    HttpResponse::Ok()
+        .content_type(ContentType::json())
+        .json(resp)
+}
+
+async fn with_param(req: HttpRequest, path: web::Path<(String,)>) -> HttpResponse {
+    println!("{req:?}");
+    let resp = LnUrlStruct{
+        callback: "https://uxuy.one/lnd/payreq/1000".to_string(),
+        max_sendable: 100000000,
+        min_sendable: 1000,
+        metadata: LnUrlMeta{
+            text_identifier: "max@uxuy.one".to_string(),
+            text_plain: "wallet id is max@uxuy.com".to_string(),
+        },
+        comment_allowed: 0,
+        tag: "".to_string(),
+        allows_nostr: false,
+        nostr_pubkey: "".to_string(),
     };
 
     HttpResponse::Ok()
@@ -93,6 +142,8 @@ async fn with_param(req: HttpRequest, path: web::Path<(String,)>) -> HttpRespons
     //     .content_type(ContentType::plaintext())
     //     .body(format!("Hello {}!", path.0))
 }
+
+
 
 #[actix_web::main]
 async fn main() -> io::Result<()> {
@@ -121,6 +172,7 @@ async fn main() -> io::Result<()> {
             .service(welcome)
             // with path parameters
             .service(web::resource("/.well-known/lnurlp/{name}").route(web::get().to(with_param)))
+            .service(web::resource("/lnd/payreq/{amt}").route(web::get().to(generate_invoice)))
             // async response body
             .service(web::resource("/async-body/{name}").route(web::get().to(response_body)))
             .service(
