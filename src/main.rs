@@ -128,8 +128,8 @@ async fn with_param(req: HttpRequest, path: web::Path<(String,)>) -> HttpRespons
             text_identifier: "max@uxuy.one".to_string(),
             text_plain: "wallet id is max@uxuy.com".to_string(),
         },
-        comment_allowed: 0,
-        tag: "".to_string(),
+        comment_allowed: 255,
+        tag: "payRequest".to_string(),
         allows_nostr: false,
         nostr_pubkey: "".to_string(),
     };
