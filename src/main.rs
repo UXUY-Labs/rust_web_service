@@ -92,7 +92,7 @@ struct LnUrlStruct {
     pub max_sendable: i64,
     #[serde(rename = "minSendable")]
     pub min_sendable: i64,
-    pub metadata: LnUrlMeta,
+    pub metadata: String,
     #[serde(rename = "commentAllowed")]
     pub comment_allowed: i64,
     pub tag: String,
@@ -124,10 +124,7 @@ async fn with_param(req: HttpRequest, path: web::Path<(String,)>) -> HttpRespons
         callback: "https://uxuy.one/lnd/payreq/1000".to_string(),
         max_sendable: 100000000,
         min_sendable: 1000,
-        metadata: LnUrlMeta{
-            text_identifier: "max@uxuy.one".to_string(),
-            text_plain: "wallet id is max@uxuy.com".to_string(),
-        },
+        metadata: "[[\"text/plain\",\"Pay to Wallet of Satoshi user: kevin\"],[\"text/identifier\",\"kevin@walletofsatoshi.com\"]]".to_string(),
         comment_allowed: 255,
         tag: "payRequest".to_string(),
         allows_nostr: false,
